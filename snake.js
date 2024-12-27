@@ -29,6 +29,11 @@ window.onload = function() {
 
     placeFood();
     document.addEventListener("keyup", changeDirection);
+
+     // Adding touch event listeners for mobile
+     board.addEventListener("touchstart", handleTouchStart, false);
+     board.addEventListener("touchend", handleTouchEnd, false);
+ 
     //update();
     setInterval(update, 1000/10);
 }
@@ -72,7 +77,7 @@ function update() {
     }
 
     for (let i = 0; i < snakeBody.length; i++) {
-        if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i[1]]) {
+        if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
             gameOver = true;
             alert("Game Over")
         }
@@ -114,20 +119,20 @@ function handleTouchEnd(event) {
     var diffX = touchEndX - touchStartX;
     var diffY = touchEndY - touchStartY;
 
-    // Tentukan arah berdasarkan gesekan
+    // Determine direction based on swipe
     if (Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX > 0 && velocityX !== -1) { // Geser ke kanan
+        if (diffX > 0 && velocityX !== -1) { // swipe rigth
             velocityX = 1;
             velocityY = 0;
-        } else if (diffX < 0 && velocityX !== 1) { // Geser ke kiri
+        } else if (diffX < 0 && velocityX !== 1) { // swipe left
             velocityX = -1;
             velocityY = 0;
         }
     } else {
-        if (diffY > 0 && velocityY !== -1) { // Geser ke bawah
+        if (diffY > 0 && velocityY !== -1) { // swipe down
             velocityX = 0;
             velocityY = 1;
-        } else if (diffY < 0 && velocityY !== 1) { // Geser ke atas
+        } else if (diffY < 0 && velocityY !== 1) { // swipe up
             velocityX = 0;
             velocityY = -1;
         }
